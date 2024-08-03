@@ -1,22 +1,51 @@
-import java.text.*
+defaultTasks 'hello', 'hi'
+
+logger.info "BUILD.GRADLE is running @ ${gradle.timestamp()}"
+
+logger.info ">>> build.gradle: ${gradle.gradleVersion}"
+logger.info ">>> build.gradle: ${gradle.gradleHomeDir}"
+logger.info ">>> build.gradle: ${gradle.gradleUserHomeDir}"
+
+logger.info ">>> build.gradle: ${buildFile}"
+
+logger.info ">>> build.gradle: ${relativePath(buildFile)}"
+
+logger.info """
+*****
+Stuff
+*****
+${shaheen}
+"""
+
+// logger.info ">>> build.gradle ${calvin}" // This works if you set the variable during the CLI (ex: -Pcalvin=hobbess)
 
 
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:MM:ss'Z'")
-sdf.setTimeZone(TimeZone.getTimeZone("UTC"))
+task hi
 
-println "Hello World now:" + sdf.format(new Date())
-
-sayHelloWorld()
-
-void sayHelloWorld() {
-  println "Hello World!"
+project.hi.doLast {
+	logger.info "******hi"
 }
 
 
-def doubleIt(i) {
-	println(i)
-	i * 3
-	Integer y = "324"
+task hello {
+	description = "Log the name of hte task"
+	group = "Welcome"
+	def ddstfgf = "asdf"
+	doFirst {
+		println "hello:doFirst was called"
+	}
+	println ddstfgf + "!!!"
+	doLast {
+		println "hello:dolast was called"
+	}
 }
 
-doubleIt()
+hello.doFirst {
+	println "11143443"
+}
+
+hello.doLast {
+	println "43443"
+}.doFirst {
+	println "12345"
+}

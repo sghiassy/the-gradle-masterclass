@@ -24,6 +24,13 @@ jar {
                'Main-Class': 'com.denofprogramming.random.App'
   }
 
-  println ">>>>> archivesBaseName: $archivesBaseName"
-  println ">>>>> manifest.attributes: $manifest.attributes"
+  // Copy all Dependencies into the Jar file
+  from {
+    project.configurations.runtimeClasspath.collect {File file -> project.zipTree(file)}
+  }
 }
+
+
+
+
+

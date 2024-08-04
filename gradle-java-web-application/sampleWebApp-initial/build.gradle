@@ -1,5 +1,6 @@
 plugins {
   id 'java'
+  id 'war'
 }
 
 group = 'com.denofprogramming'
@@ -14,20 +15,37 @@ repositories{
 	mavenCentral()
 }
 
+war {
+	archiveBaseName = "mywebapp.war"
+}
 
-dependencies { 
+// Copy .war file to a Tomcat Server
+// task deploy (dependsOn: war) {
+//     copy {
+//         from "build/libs"
+//         into "/Users/sghiassy"
+//         include "*.war"
+//     }
+// }
 
 
-	implementation 'org.springframework:spring-webmvc:4.0.3.RELEASE'
+dependencies {
+
+	// remove the transitive dependency defined in spring framework and replace them with the slf4j defined below
+	// implementation 'org.springframework:spring-webmvc:4.0.3.RELEASE'
+	implementation('org.springframework:spring-webmvc:4.0.3.RELEASE') {
+		exclude group: 'commons-logging', module: 'commons-logging'
+	}
 	implementation 'javax.inject:javax.inject:1'
 	implementation 'org.apache.commons:commons-math3:3.2'
 	implementation 'jstl:jstl:1.2'
-	implementation 'log4j:log4j:1.2.17'
-		
-		
+
+	// implementation 'log4j:log4j:1.2.17'
+
+	implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+	implementation 'org.slf4j:jcl-over-slf4j:1.7.25'
+
+
 	compileOnly "javax.servlet:javax.servlet-api:3.0.1"
 	testImplementation	'junit:junit:4.11'
-
 }
-
-
